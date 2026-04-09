@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiruthika Venkatesan — PM, AI Platform Benchmarking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--s1:#111111;--s2:#161616;--card:#1a1a1a;
+  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.11);
+  --text:#f0ede8;--muted:rgba(240,237,232,.48);--dim:rgba(240,237,232,.24);
+  --green:#22c55e;--green2:#16a34a;--green3:rgba(34,197,94,.08);--green4:rgba(34,197,94,.15);
+  --serif:'Syne',sans-serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(10,10,10,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);}
+.nl{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:.02em;}
+.nl span{color:var(--green);}
+.nr{display:flex;gap:2.25rem;list-style:none;}
+.nr a{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nr a:hover,.nr a.active{color:var(--green);}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:58% 42%;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;right:0;width:42%;height:100%;background:var(--s1);border-left:1px solid var(--b1);z-index:0;}
+/* animated grid lines */
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(34,197,94,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+.hl{display:flex;flex-direction:column;justify-content:center;padding:9rem 4rem 6rem 5.5rem;position:relative;z-index:2;}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:2rem;opacity:0;animation:up .7s ease .1s forwards;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--green);}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,4.5vw,5rem);line-height:.92;font-weight:800;color:var(--text);margin-bottom:1.5rem;opacity:0;animation:up .7s ease .25s forwards;}
+.hero-name em{font-style:normal;color:var(--green);}
+.hero-desc{font-size:.93rem;line-height:1.85;color:var(--muted);max-width:46ch;margin-bottom:2.75rem;opacity:0;animation:up .7s ease .4s forwards;}
+.hero-desc strong{color:var(--text);font-weight:500;}
+.hero-cta{display:flex;gap:.875rem;flex-wrap:wrap;opacity:0;animation:up .7s ease .55s forwards;}
+.btn-p{display:inline-flex;align-items:center;gap:.45rem;background:var(--green);color:#000;padding:.85rem 1.875rem;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:all .22s;}
+.btn-p:hover{background:#16a34a;transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:.45rem;background:transparent;color:var(--text);padding:.85rem 1.875rem;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.04em;text-decoration:none;border:1px solid var(--b2);transition:all .22s;}
+.btn-s:hover{border-color:var(--green);color:var(--green);}
+
+.hr{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:9rem 3rem 6rem;gap:1.5rem;}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--b1);width:100%;opacity:0;animation:fade 1s ease .75s forwards;}
+.mc{background:var(--card);padding:1.6rem 1.4rem;transition:background .2s;position:relative;overflow:hidden;}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--green),transparent);opacity:0;transition:opacity .2s;}
+.mc:hover{background:#1e1e1e;}.mc:hover::before{opacity:1;}
+.mn{font-family:var(--serif);font-size:2.4rem;font-weight:800;line-height:1;margin-bottom:.3rem;color:var(--green);}
+.ml{font-size:.65rem;color:var(--muted);line-height:1.45;font-family:var(--mono);}
+
+.stack-card{width:100%;padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--b1);opacity:0;animation:fade 1s ease 1s forwards;}
+.sc-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.7rem;}
+.sc-pills{display:flex;flex-wrap:wrap;gap:.4rem;}
+.sp{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--b1);padding:.25rem .55rem;transition:all .2s;}
+.sp:hover{border-color:var(--green);color:var(--green);}
+.sp.hi{border-color:rgba(34,197,94,.3);color:rgba(34,197,94,.85);}
+
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);}
+.si{padding:2.25rem 2rem;border-right:1px solid var(--b1);transition:background .2s;}
+.si:last-child{border-right:none;}
+.si:hover{background:var(--s1);}
+.sn{font-family:var(--serif);font-size:2.6rem;font-weight:800;line-height:1;color:var(--green);margin-bottom:.25rem;}
+.ss{font-size:.71rem;color:var(--muted);line-height:1.5;font-family:var(--mono);}
+
+section{position:relative;z-index:1;}
+.con{max-width:1120px;margin:0 auto;padding:0 3.5rem;}
+.sh{display:flex;align-items:center;gap:1.25rem;margin-bottom:3.75rem;}
+.shn{font-family:var(--mono);font-size:.58rem;color:var(--green);letter-spacing:.14em;}
+.sht{font-family:var(--serif);font-size:2.2rem;font-weight:800;color:var(--text);line-height:1;}
+.shr{flex:1;height:1px;background:var(--b1);margin-left:.75rem;}
+
+/* EXPERIENCE */
+.exp-sec{padding:7rem 0;background:var(--s1);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);}
+.ei{display:grid;grid-template-columns:185px 1fr;gap:3.5rem;padding:2.75rem 0;border-bottom:1px solid var(--b1);opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s;}
+.ei.vis{opacity:1;transform:translateY(0);}
+.ei:last-child{border-bottom:none;}
+.eco{font-family:var(--mono);font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.35rem;}
+.edt{font-size:.68rem;color:var(--muted);margin-bottom:.6rem;font-family:var(--mono);}
+.ebdg{display:inline-block;font-family:var(--mono);font-size:.53rem;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid rgba(34,197,94,.25);padding:.15rem .5rem;background:var(--green3);}
+.er{font-family:var(--serif);font-size:1.38rem;font-weight:700;line-height:1.18;color:var(--text);margin-bottom:.85rem;}
+.ed{font-size:.83rem;color:var(--muted);line-height:1.78;margin-bottom:1.1rem;}
+.ew{display:flex;flex-wrap:wrap;gap:.4rem;}
+.wt{font-family:var(--mono);font-size:.57rem;letter-spacing:.04em;background:var(--green3);color:var(--green);border:1px solid rgba(34,197,94,.18);padding:.22rem .55rem;transition:all .2s;}
+.wt:hover{background:var(--green);color:#000;}
+
+/* CAPABILITIES */
+.cap-sec{padding:7rem 0;}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b1);}
+.cg{background:var(--card);padding:2.25rem;transition:background .2s;position:relative;overflow:hidden;}
+.cg:hover{background:#1e1e1e;}
+.cg::after{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--green);transform:scaleY(0);transform-origin:top;transition:transform .3s;}
+.cg:hover::after{transform:scaleY(1);}
+.cg-tag{font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;}
+.cg-title{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.45rem;}
+.cg-desc{font-size:.75rem;color:var(--muted);line-height:1.65;}
+.cg-metric{margin-top:.9rem;padding:.5rem .75rem;background:var(--green3);border-left:2px solid var(--green);font-family:var(--mono);font-size:.59rem;color:var(--green);letter-spacing:.04em;}
+
+/* PROJECTS */
+.proj-sec{padding:7rem 0;background:var(--s1);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--b1);}
+.pc{background:var(--card);padding:2.75rem;position:relative;overflow:hidden;opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s,background .2s;}
+.pc.vis{opacity:1;transform:translateY(0);}
+.pc:hover{background:#1e1e1e;}
+.pc::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--green),rgba(34,197,94,.3),transparent);}
+.pn{font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;color:var(--dim);margin-bottom:1.1rem;}
+.pt{font-family:var(--serif);font-size:1.32rem;font-weight:700;line-height:1.2;color:var(--text);margin-bottom:.6rem;}
+.ps{font-family:var(--mono);font-size:.56rem;letter-spacing:.07em;color:rgba(34,197,94,.6);margin-bottom:1.2rem;}
+.pd{font-size:.82rem;color:var(--muted);line-height:1.78;margin-bottom:1.75rem;}
+.pr2{border-top:1px solid var(--b1);padding-top:1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.rn{font-family:var(--serif);font-size:1.75rem;font-weight:800;line-height:1;margin-bottom:.2rem;color:var(--green);}
+.rl{font-size:.61rem;color:var(--dim);line-height:1.4;font-family:var(--mono);}
+
+/* SKILLS */
+.sk-sec{padding:7rem 0;}
+.sk-layout{display:grid;grid-template-columns:1fr 2.2fr;gap:5rem;align-items:start;}
+.sk-quote{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--text);line-height:1.4;position:relative;padding-top:1.5rem;}
+.sk-quote::before{content:'';position:absolute;top:0;left:0;width:28px;height:2px;background:var(--green);}
+.skg{display:flex;flex-direction:column;gap:2rem;}
+.skgl{font-family:var(--mono);font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.65rem;}
+.skgt{display:flex;flex-wrap:wrap;gap:.4rem;}
+.st{font-size:.77rem;padding:.32rem .76rem;background:var(--s1);color:var(--muted);border:1px solid var(--b1);transition:all .2s;cursor:default;}
+.st:hover{border-color:var(--b2);color:var(--text);}
+.st.hi{background:var(--green3);color:var(--green);border-color:rgba(34,197,94,.22);font-weight:500;}
+.st.hi:hover{background:var(--green);color:#000;border-color:var(--green);}
+
+/* EDU */
+.edu-sec{padding:5rem 0;background:var(--s1);border-top:1px solid var(--b1);}
+.edu-g{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--b1);}
+.ec{background:var(--card);padding:2.25rem;border-top:2px solid transparent;transition:all .2s;}
+.ec:hover{background:#1e1e1e;border-top-color:var(--green);}
+.ed2{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.28rem;}
+.es{font-size:.76rem;color:var(--muted);margin-bottom:.85rem;font-family:var(--mono);}
+.er2{display:flex;gap:1.5rem;}
+.eg{font-family:var(--mono);font-size:.61rem;color:var(--green);letter-spacing:.08em;font-weight:500;}
+.edt2{font-family:var(--mono);font-size:.61rem;color:var(--dim);letter-spacing:.06em;}
+
+/* CONTACT */
+.ct-sec{padding:8rem 0;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--b1);}
+.ct-sec::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.07) 0%,transparent 70%);pointer-events:none;}
+.ct-sec::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(34,197,94,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.ct-ey{font-family:var(--mono);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.75rem;position:relative;z-index:1;}
+.ct-ey::before,.ct-ey::after{content:'';display:inline-block;width:28px;height:1px;background:var(--green);}
+.ct-h{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:800;color:var(--text);line-height:1.05;margin-bottom:1rem;position:relative;z-index:1;}
+.ct-h em{font-style:normal;color:var(--green);}
+.ct-sub{font-size:.86rem;color:var(--muted);margin-bottom:3rem;position:relative;z-index:1;font-family:var(--mono);}
+.ct-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;position:relative;z-index:1;}
+.cl{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.67rem;letter-spacing:.06em;color:var(--muted);text-decoration:none;padding:.7rem 1.4rem;border:1px solid var(--b1);transition:all .2s;}
+.cl:hover{color:var(--green);border-color:rgba(34,197,94,.35);background:var(--green3);}
+
+footer{background:#050505;border-top:1px solid var(--b1);padding:1.35rem 3.5rem;display:flex;justify-content:space-between;align-items:center;}
+.fn{font-family:var(--serif);font-size:.85rem;color:var(--dim);font-weight:600;}
+.fr{font-family:var(--mono);font-size:.54rem;letter-spacing:.08em;color:var(--dim);}
+
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--green);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nl">K<span>.</span>Venkatesan</a>
+  <ul class="nr">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hl">
+    <p class="eyebrow">PM · AI Platform Benchmarking · MLOps · Santa Clara, CA</p>
+    <h1 class="hero-name">Kiruthika<br><em>Venkatesan</em></h1>
+    <p class="hero-desc">
+      Building <strong>AI platform software and developer tools</strong> — from competitive benchmarking pipelines and GPU-accelerated workload analysis to MLOps platforms and customer-ready technical collateral. 5+ years partnering with engineering and researchers to architect platform solutions for <strong>AI developers and infrastructure admins.</strong>
+    </p>
+    <div class="hero-cta">
+      <a href="#capabilities" class="btn-p">Platform Capabilities →</a>
+      <a href="#contact" class="btn-s">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hr">
+    <div class="m-grid">
+      <div class="mc"><div class="mn">84%</div><div class="ml">AI platform adoption · developer tools · 6 months</div></div>
+      <div class="mc"><div class="mn">73%</div><div class="ml">Benchmarking precision improvement · GPU + CPU platform analysis</div></div>
+      <div class="mc"><div class="mn">100%</div><div class="ml">MLOps benchmarking accuracy · model deployment platform</div></div>
+      <div class="mc"><div class="mn">98</div><div class="ml">ATS match score · Platform Benchmarking PM role</div></div>
+    </div>
+    <div class="stack-card">
+      <div class="sc-label">Tech stack & specializations</div>
+      <div class="sc-pills">
+        <span class="sp hi">Platform Benchmarking</span>
+        <span class="sp hi">MLOps</span>
+        <span class="sp hi">GPU-Accelerated AI</span>
+        <span class="sp hi">Python</span>
+        <span class="sp hi">AI Developer Tools</span>
+        <span class="sp hi">Competitive Analysis</span>
+        <span class="sp">Data Engineering</span>
+        <span class="sp">REST APIs</span>
+        <span class="sp">CI/CD</span>
+        <span class="sp">Technical Whitepapers</span>
+        <span class="sp">ML Inference</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="si"><div class="sn">5+</div><div class="ss">YRS PM experience · platform software · developer tools · AI infrastructure</div></div>
+  <div class="si"><div class="sn">12+</div><div class="ss">ENTERPRISE clients served · AI platform software & benchmarking strategy</div></div>
+  <div class="si"><div class="sn">44%</div><div class="ss">BENCHMARKING precision improvement · competitive analysis framework</div></div>
+  <div class="si"><div class="sn">4</div><div class="ss">SIMULTANEOUS product workstreams delivered on time · self-starter execution</div></div>
+</div>
+
+<section class="exp-sec" id="experience">
+  <div class="con">
+    <div class="sh"><span class="shn">01</span><h2 class="sht">Experience</h2><div class="shr"></div></div>
+
+    <div class="ei">
+      <div>
+        <div class="eco">FINRA USA</div>
+        <div class="edt">May 2025 – Sep 2025</div>
+        <div class="ebdg">PM Co-op · AI Platform</div>
+      </div>
+      <div>
+        <div class="er">Product Manager Co-op<br>AI Platform & Developer Tools</div>
+        <p class="ed">Developed product vision and platform software strategy for an AI-powered analytics platform. Collaborated with engineers and researchers to architect platform software from a product perspective. Gathered requirements for next-generation AI developer tools, conducted competitive analysis across benchmarking approaches, and drove GPU-accelerated and CPU platform benchmarking pipelines in Python. Defined use cases for technically diverse audiences and developed customer-ready collateral including technical whitepapers and product specifications.</p>
+        <div class="ew">
+          <span class="wt">↑34% platform adoption</span>
+          <span class="wt">↑73% benchmarking precision</span>
+          <span class="wt">GPU-accelerated workloads</span>
+          <span class="wt">↓30% onboarding time</span>
+          <span class="wt">↑79% MTTR improvement</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ei">
+      <div>
+        <div class="eco">Cognizant</div>
+        <div class="edt">Jul 2021 – Aug 2024</div>
+        <div class="ebdg">Full-time · 3 yrs</div>
+      </div>
+      <div>
+        <div class="er">Senior Product Manager<br>AI Platform Software & Benchmarking</div>
+        <p class="ed">Owned product vision and platform software strategy for AI developer tools across 12+ enterprise clients. Drove competitive benchmarking analysis and market research. Built MLOps platform capabilities — model training, inference, deployment, and monitoring pipelines. Developed customer-ready technical collateral, whitepapers, and product specifications. Operated as a self-starter simultaneously leading platform benchmarking, MLOps tooling, and competitive analysis workstreams. Applied hands-on Python, data engineering, and CI/CD to craft precise engineering specifications.</p>
+        <div class="ew">
+          <span class="wt">84% adoption · 6 months</span>
+          <span class="wt">MLOps pipeline · 38% efficiency</span>
+          <span class="wt">84% competitive coverage</span>
+          <span class="wt">Whitepapers & product specs</span>
+          <span class="wt">4 workstreams on time</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ei">
+      <div>
+        <div class="eco">Cognizant</div>
+        <div class="edt">Jun 2020 – Jul 2021</div>
+        <div class="ebdg">Full-time · 1 yr</div>
+      </div>
+      <div>
+        <div class="er">Associate Product Manager<br>Platform Software & Data Engineering</div>
+        <p class="ed">Gathered requirements and conducted competitive analysis for platform software improvements. Developed Python-based benchmarking scripts, data engineering pipelines, and CI/CD validation tooling. Demonstrated technical and business knowledge balance — analytical skills applied to benchmark AI platform performance, marketing skills used to craft product positioning collateral, and project management across engineering and sales teams.</p>
+        <div class="ew">
+          <span class="wt">↓29% performance failures</span>
+          <span class="wt">↑30% data engineering efficiency</span>
+          <span class="wt">100% execution success rate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cap-sec" id="capabilities">
+  <div class="con">
+    <div class="sh"><span class="shn">02</span><h2 class="sht">Platform Capabilities</h2><div class="shr"></div></div>
+    <div class="cap-grid">
+
+      <div class="cg">
+        <div class="cg-tag">Benchmarking</div>
+        <div class="cg-title">AI Platform Benchmarking & Performance Measurement</div>
+        <div class="cg-desc">Built Python-based benchmarking pipelines measuring ML model performance, throughput, and latency across GPU-accelerated and CPU platform configurations. Defined benchmarking metrics and competitive analysis frameworks comparing hardware-accelerated AI workload performance.</div>
+        <div class="cg-metric">↑73% benchmarking precision · GPU + CPU platform configs</div>
+      </div>
+
+      <div class="cg">
+        <div class="cg-tag">MLOps</div>
+        <div class="cg-title">MLOps Platform & Model Lifecycle Tooling</div>
+        <div class="cg-desc">Defined product requirements for ML model training, inference, deployment, and monitoring pipelines. Partnered with data engineering on MLOps tooling for model reproducibility, performance measurement, and operational visibility. Applied software development background to craft precise engineering specifications.</div>
+        <div class="cg-metric">↑38% MLOps pipeline efficiency · 100% benchmarking accuracy</div>
+      </div>
+
+      <div class="cg">
+        <div class="cg-tag">Competitive Intelligence</div>
+        <div class="cg-title">Competitive Analysis & Market Research</div>
+        <div class="cg-desc">Conducted systematic competitive analysis of AI platform benchmarking approaches across leading cloud and hardware-accelerated infrastructure providers. Gathered requirements for next-generation platform products and incorporated customer feedback into product roadmap priorities.</div>
+        <div class="cg-metric">↑84% competitive coverage · ↑37% market differentiation</div>
+      </div>
+
+      <div class="cg">
+        <div class="cg-tag">Collateral</div>
+        <div class="cg-title">Technical Whitepapers & Customer-Ready Collateral</div>
+        <div class="cg-desc">Authored technical whitepapers, product specifications, and platform benchmarking reports based on engineering documentation. Developed and reviewed customer-ready collateral defining use cases and value propositions for technically diverse audiences — from AI developers to executive stakeholders.</div>
+        <div class="cg-metric">↑84% collateral coverage · ↓30% customer onboarding time</div>
+      </div>
+
+      <div class="cg">
+        <div class="cg-tag">Developer Tools</div>
+        <div class="cg-title">AI Developer Tools & Platform Software Strategy</div>
+        <div class="cg-desc">Collaborated with engineers and researchers to architect platform software for AI developers and infrastructure admins. Defined product vision aligned with next-generation AI infrastructure requirements. Drove new product introductions across engineering, build, operations, sales, and marketing.</div>
+        <div class="cg-metric">↑41% AI developer efficiency · 84% platform adoption in 6 months</div>
+      </div>
+
+      <div class="cg">
+        <div class="cg-tag">Customer Education</div>
+        <div class="cg-title">Customer Education & Platform Evangelism</div>
+        <div class="cg-desc">Educated current and potential customers on platform software advantages — created benchmark walkthroughs, product comparison materials, and demo environments for AI developers and infrastructure admins. Promoted platform advantages to technically diverse audiences from ML engineers to C-suite.</div>
+        <div class="cg-metric">↑34% education coverage · ↑27% trial-to-adoption conversion</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="proj-sec" id="projects">
+  <div class="con">
+    <div class="sh"><span class="shn">03</span><h2 class="sht">Key Projects</h2><div class="shr"></div></div>
+    <div class="pg">
+      <div class="pc">
+        <div class="pn">PROJECT 01 / 02</div>
+        <h3 class="pt">AI Platform Benchmarking Suite: Performance Measurement & Competitive Analysis</h3>
+        <div class="ps">18 MONTHS · LEAD PM · PYTHON · MLOps · REST APIs · CI/CD · ML · DATA ENGINEERING</div>
+        <p class="pd">AI platform teams lacked unified benchmarking methodology — competitive analysis was unreliable and value propositions unclear. Developed product vision and benchmarking strategy: collaborated with engineers to architect benchmarking platform software, defined use cases for technically diverse audiences, gathered customer requirements and competitive intelligence, built Python-based MLOps benchmarking pipelines, and developed customer-ready whitepapers and product specifications.</p>
+        <div class="pr2">
+          <div><div class="rn">44%</div><div class="rl">Benchmarking precision improvement</div></div>
+          <div><div class="rn">41%</div><div class="rl">Competitive analysis coverage improved</div></div>
+          <div><div class="rn">36%</div><div class="rl">Customer onboarding improved</div></div>
+          <div><div class="rn">100%</div><div class="rl">Project execution success rate</div></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pn">PROJECT 02 / 02</div>
+        <h3 class="pt">MLOps Developer Platform: Model Deployment, Monitoring & Performance Tooling</h3>
+        <div class="ps">10 MONTHS · PM · MLOps · PYTHON · REST APIs · CI/CD · DATA ENGINEERING · ANALYTICS</div>
+        <p class="pd">AI developers and infrastructure admins lacked unified MLOps tooling — deployment, monitoring, and performance measurement were fragmented. Defined product requirements for MLOps platform software: model training pipeline instrumentation, inference benchmarking, deployment automation, and operational monitoring. Developed technical whitepapers and product specifications. Educated AI developers and infrastructure admins on platform advantages.</p>
+        <div class="pr2">
+          <div><div class="rn">36%</div><div class="rl">MLOps developer productivity improved</div></div>
+          <div><div class="rn">28%</div><div class="rl">Model deployment reliability improved</div></div>
+          <div><div class="rn">100%</div><div class="rl">Benchmarking accuracy achieved</div></div>
+          <div><div class="rn">29%</div><div class="rl">Prototype-to-production cycle cut</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sk-sec" id="skills">
+  <div class="con">
+    <div class="sh"><span class="shn">04</span><h2 class="sht">Skills & Stack</h2><div class="shr"></div></div>
+    <div class="sk-layout">
+      <div>
+        <p class="sk-quote">Architecting platform software where benchmarks speak louder than claims.</p>
+      </div>
+      <div class="skg">
+        <div>
+          <div class="skgl">AI Platform & Benchmarking</div>
+          <div class="skgt">
+            <span class="st hi">Platform Benchmarking</span>
+            <span class="st hi">ML Performance Measurement</span>
+            <span class="st hi">GPU-Accelerated AI Workloads</span>
+            <span class="st hi">AI Developer Tools</span>
+            <span class="st hi">Competitive Analysis</span>
+            <span class="st">Hardware-Accelerated Inference</span>
+            <span class="st">Product Vision</span>
+          </div>
+        </div>
+        <div>
+          <div class="skgl">Software Development & MLOps</div>
+          <div class="skgt">
+            <span class="st hi">Python</span>
+            <span class="st hi">MLOps</span>
+            <span class="st hi">Data Engineering</span>
+            <span class="st hi">CI/CD</span>
+            <span class="st hi">REST APIs</span>
+            <span class="st">ML Inference Pipelines</span>
+            <span class="st">Model Training</span>
+            <span class="st">Automation</span>
+          </div>
+        </div>
+        <div>
+          <div class="skgl">Product & Collateral</div>
+          <div class="skgt">
+            <span class="st hi">Technical Whitepapers</span>
+            <span class="st hi">Product Specifications</span>
+            <span class="st hi">Use Case Definition</span>
+            <span class="st">Requirements Gathering</span>
+            <span class="st">Customer Education</span>
+            <span class="st">Cross-functional Leadership</span>
+            <span class="st">Multiple Project Management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="edu-sec">
+  <div class="con">
+    <div class="sh"><span class="shn">05</span><h2 class="sht">Education</h2><div class="shr"></div></div>
+    <div class="edu-g">
+      <div class="ec">
+        <div class="ed2">Master of Science — Information Technology</div>
+        <div class="es">University of Denver · Currently enrolled</div>
+        <div class="er2"><span class="eg">GPA 3.97 / 4.0</span><span class="edt2">Aug 2024 – May 2026</span></div>
+      </div>
+      <div class="ec">
+        <div class="ed2">Bachelor of Engineering — Computer Science</div>
+        <div class="es">Anna University</div>
+        <div class="er2"><span class="eg">GPA 3.8 / 4.0</span><span class="edt2">Aug 2017 – May 2021</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ct-sec" id="contact">
+  <div class="con">
+    <div class="ct-ey">Open to opportunities</div>
+    <h2 class="ct-h">Building platform software<br>where <em>benchmarks matter.</em></h2>
+    <p class="ct-sub">Available for PM roles · AI Platform Benchmarking · MLOps · Santa Clara, CA</p>
+    <div class="ct-links">
+      <a href="mailto:kiruthikavenkat2704@gmail.com" class="cl">✉ &nbsp;kiruthikavenkat2704@gmail.com</a>
+      <a href="tel:+17208135590" class="cl">✆ &nbsp;(720) 813-5590</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fn">Kiruthika Venkatesan</span>
+  <span class="fr">PM · AI Platform Benchmarking · Portfolio 2026</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*90);});
+},{threshold:.07});
+document.querySelectorAll('.ei,.pc').forEach(el=>obs.observe(el));
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nr a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-150)cur=s.id;});
+  links.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+});
+</script>
+</body>
+</html>
